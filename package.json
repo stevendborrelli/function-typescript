@@ -8,7 +8,7 @@
     "clean-proto": "rm -rf proto/generated",
     "build": "tsc",
     "serve": "npx tsx main.ts",
-    "serve-js": "npm run main.js",
+    "serve-js": "node run main.js",
     "debug": "npx tsx main.ts --insecure --debug",
     "lint": "npx eslint --ignore-pattern proto --ignore-pattern \"*.js\" ."
   },
