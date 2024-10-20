@@ -1,52 +1,31 @@
 #!/usr/bin/env node
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var grpc = require("@grpc/grpc-js");
-var resource = require("./resource");
-var fnv1 = require("./proto/generated/v1/run_function_pb");
-var protobuf_1 = require("@bufbuild/protobuf");
-var res = {
-    "spec": {
-        "forProvider": {
-            "region": "eu-south"
-        },
-    },
+//const { Command } = require("commander");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+const runtime = __importStar(require("./runtime"));
 if (require.main === module) {
-    var req = (0, protobuf_1.create)(fnv1.RunFunctionRequestSchema, {
-        meta: (0, protobuf_1.create)(fnv1.RequestMetaSchema, {
-            tag: "test"
-        }),
-        observed: (0, protobuf_1.create)(fnv1.StateSchema, {
-            composite: (0, protobuf_1.create)(fnv1.ResourceSchema),
-            resources: {
-                "foo": (0, protobuf_1.create)(fnv1.ResourceSchema),
-                "bar": (0, protobuf_1.create)(fnv1.ResourceSchema, {
-                    resource: res
-                })
-            },
-        }),
-        desired: (0, protobuf_1.create)(fnv1.StateSchema, {
-            composite: (0, protobuf_1.create)(fnv1.ResourceSchema),
-            resources: {
-                "foo": (0, protobuf_1.create)(fnv1.ResourceSchema, {
-                    resource: {
-                        "apiVersion": "v1",
-                        "kind": "mykind"
-                    }
-                }),
-                "bar": (0, protobuf_1.create)(fnv1.ResourceSchema, {
-                    resource: res
-                })
-            },
-        })
-    });
-    var rsp = resource.to(req);
-    var json_1 = (0, protobuf_1.toJson)(fnv1.RunFunctionResponseSchema, rsp);
-    var host_1 = '0.0.0.0:9443';
-    var server = new grpc.Server();
-    server.bindAsync(host_1, grpc.ServerCredentials.createInsecure(), function () {
-        console.log("Server running at ", host_1);
-        console.log("response", json_1);
-    });
+    runtime.serve();
 }

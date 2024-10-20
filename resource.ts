@@ -4,7 +4,7 @@ import { create } from '@bufbuild/protobuf';
 // to bootstraps a response to the supplied request. It automatically copies the
 // desired state from the request.
 export function to(req: fnv1.RunFunctionRequest): fnv1.RunFunctionResponse {
-    let rsp = create(fnv1.RunFunctionResponseSchema, {
+    const rsp = create(fnv1.RunFunctionResponseSchema, {
         meta: create(fnv1.ResponseMetaSchema, { tag: req.meta?.tag }),
         desired: req.desired,
         context: req.context,
