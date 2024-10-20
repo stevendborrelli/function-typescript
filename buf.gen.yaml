@@ -1,14 +1,10 @@
-# npm install @bufbuild/protobuf @bufbuild/protoc-gen-es @bufbuild/buf
-# See npm install @bufbuild/protobuf @bufbuild/protoc-gen-es @bufbuild/buf
 version: v2
 inputs:
   - directory: proto
 plugins:
   - local: protoc-gen-es
-    opt: target=ts+js+dts
+    opt: target=ts+dts
     out: proto/generated
-  #- remote: buf.build/grpc/web:v1.5.0
-   # out: proto/generated
-    #opt: grpc-web_out=import_style=dts
-  # - remote: buf.build/protocolbuffers/js:v3.21.2
-  #   out: proto/generated/v1
+  - local: protoc-gen-connect-es
+    out: proto/generated
+    opt: target=ts+dts
