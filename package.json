@@ -1,0 +1,33 @@
+{
+  "name": "function-typscript",
+  "version": "0.1.0",
+  "description": "A Crossplane Function in Typescript",
+  "main": "main.js",
+  "scripts": {
+    "gen-proto": "npx buf generate",
+    "clean-proto": "rm -rf proto/generated",
+    "build": "tsc",
+    "serve": "npx tsx main.ts",
+    "serve-js": "npm run main.js",
+    "debug": "npx tsx main.ts --insecure --debug",
+    "lint": "npx eslint --ignore-pattern proto --ignore-pattern \"*.js\" ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/stevendborrelli/function-typescript"
+  },
+  "keywords": [
+    "crossplane",
+    "typescript",
+    "kubernetes"
+  ],
+  "author": "Steven Borrelli <steve@borrelli.org>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@bufbuild/buf": "^1.45.0",
+    "@bufbuild/protobuf": "^2.2.0",
+    "@bufbuild/protoc-gen-es": "^2.2.0",
+    "@connectrpc/connect-fastify": "^2.0.0-rc.1",
+    "@connectrpc/connect-node": "^2.0.0-rc.1"
+  }
+}

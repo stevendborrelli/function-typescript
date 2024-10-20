@@ -1,4 +1,11 @@
 {
+  "files": [
+    "connect.ts",
+    "function.ts",
+    "resource.ts",
+    "runtime.ts",
+    "main.ts"
+  ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
