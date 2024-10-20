@@ -2,7 +2,7 @@
   "files": [
     "connect.ts",
     "function.ts",
-    "resource.ts",
+    "response.ts",
     "runtime.ts",
     "main.ts"
   ],

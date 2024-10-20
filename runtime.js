@@ -37,8 +37,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.serve = exports.tlsOptions = void 0;
 const path = __importStar(require("node:path"));
+const connect_1 = require("@connectrpc/connect");
 const connect_fastify_1 = require("@connectrpc/connect-fastify");
-const connect_1 = __importDefault(require("./connect"));
+const connect_2 = __importDefault(require("./connect"));
 const fs_1 = require("fs");
 function functionWithOptions(logLevel, insecure, tlsCertsDir) {
     const fastify = require('fastify')({
@@ -63,12 +64,23 @@ function tlsOptions(insecure, tlsCertsDir) {
 exports.tlsOptions = tlsOptions;
 function serve() {
     return __awaiter(this, void 0, void 0, function* () {
-        const server = functionWithOptions('info');
-        yield server.register(connect_fastify_1.fastifyConnectPlugin, {
-            routes: connect_1.default,
-        });
-        yield server.listen({ host: "localhost", port: 9443 });
-        server.log.info("server is listening at", server.addresses());
+        try {
+            const server = functionWithOptions('info');
+            server.log.info("pre-await");
+            yield server.register(connect_fastify_1.fastifyConnectPlugin, {
+                routes: connect_2.default,
+            });
+            yield server.listen({ host: "localhost", port: 9443 });
+            //server.log.info("server is listening at", server.addresses());
+        }
+        catch (err) {
+            console.log("errorpre", err);
+            if (err instanceof connect_1.ConnectError) {
+                err.code; // Code.InvalidArgument
+                err.message; // "[invalid_argument] sentence cannot be empty"
+                console.log("error", err.message);
+            }
+        }
     });
 }
 exports.serve = serve;

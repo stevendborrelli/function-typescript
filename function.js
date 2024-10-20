@@ -9,12 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const resource_1 = require("./resource");
+const response_1 = require("./response");
 // runFunction is the main logic for our function
 function runFunction(req) {
     return __awaiter(this, void 0, void 0, function* () {
-        const rsp = (0, resource_1.to)(req);
-        console.log("req", JSON.stringify(req, null, 2));
+        const rsp = (0, response_1.to)(req);
+        //console.log("req", JSON.stringify(req, null, 2))
+        console.log("rsp", JSON.stringify(rsp, null, 2));
         return rsp;
     });
 }
